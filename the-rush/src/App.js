@@ -2,23 +2,34 @@ import data from './rushing';
 import './App.css';
 import React,{useState} from 'react';
 import { downloadCSV, filterByName, sortBy } from './services/dataService';
+import { CSVLink } from "react-csv";
 
 function App() {
   const [players, setPlayers] = useState(data);
   const [sortField, setSortField] = useState('');
   const [sortDirection, setSortDirection] = useState(-1);
   const [filterName, setFilterName] = useState('');
+  const [contentType, setContentType] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    let result = await filterByName(filterName);
+    setPlayers(result)
   };
 
-  const handleSort = async () => {
-    
+  const handleSort = async (field) => {
+    if (sortField === field && sortDirection === -1) {
+      setSortDirection(1);
+    } else if (sortDirection === 1) {
+      setSortDirection(-1);
+    }
+    let result = await sortBy(field, sortDirection, players);
+    setPlayers(result);
+    setSortField(field);
   };
 
   const handleClick = ()=> {
+    let file = downloadCSV(players);
     
   };
 
@@ -34,6 +45,7 @@ function App() {
           <input type="submit" className="btn btn-primary" value="Filter" />
         </div>
       </form>
+      <CSVLink data={players} filename={"rushing.csv"} className="button">Download Table</CSVLink>
       <button onClick={handleClick}>Download CSV</button>
       <div className="players-container">
         <table className="table table-hover">

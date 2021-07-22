@@ -14,7 +14,13 @@ const sortBy = (field, sortDirection, players) => {
 
 const filterByName = (name) => {
 
-
+  let result = [];
+  for(let i=0; i<data.length; i++) {
+    if (data[i].Player.toLowerCase().indexOf(name.toLowerCase()) >= 0) {
+      result.push(data[i]);
+    }
+  }
+  return result;
 }
 
 const downloadCSV = (players)=> {
