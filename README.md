@@ -66,3 +66,4 @@ If you have any questions regarding requirements, do not hesitate to email your 
 2. Allow to choose the number of records per page
 3. Implement a mongo database to keep the records stored
 4. Add tags for specific categories like top 10 Yds only
+5. Move Sorting and Filtering Functions to the Backend to improve performance

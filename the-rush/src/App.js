@@ -1,26 +1,27 @@
 import './App.css';
 import React,{useState, useEffect} from 'react';
-import { downloadCSV, filterByName, sortBy, getAll } from './services/dataService';
+import { filterByName, sortBy, getAll } from './services/dataService';
 import { CSVLink } from 'react-csv';
 import TableComponent from './components/table-component/TableComponent';
 
 function App() {
+  const [allPlayers, setAllPlayers] = useState([]);
   const [players, setPlayers] = useState([]);
   const [sortDirection, setSortDirection] = useState({'Yds':-1, 'Lng': -1, 'TD': -1});
   const [filterName, setFilterName] = useState('');
-  const [contentType, setContentType] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await getAll();
       setPlayers(result);
+      setAllPlayers(result);
     };
     fetchData();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let result = await filterByName(filterName, players);
+    let result = await filterByName(filterName, allPlayers);
     setPlayers(result);
   };
 

@@ -2,9 +2,6 @@ import React, {useState} from 'react'
 
 const TableComponent = ({handleSort, players}) => {
 
-  const handleClick = () => {
-    
-  };
   return (
     <div className="players-container">
     <table className="table table-hover">
@@ -56,12 +53,6 @@ const TableComponent = ({handleSort, players}) => {
         }
       </tbody>
     </table>
-    <nav aria-label="pagination">
-      <ul className="pagination">
-        <li className="page-item"><button className="page-link" onCLick={handleClick}>Previous</button></li>
-        <li className="page-item"><button className="page-link" onClick={handleClick}>Next</button></li>
-      </ul>
-    </nav>
   </div>
   )
 }
