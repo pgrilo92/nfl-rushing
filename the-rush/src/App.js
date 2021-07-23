@@ -1,20 +1,26 @@
-import data from './rushing';
 import './App.css';
-import React,{useState} from 'react';
-import { downloadCSV, filterByName, sortBy } from './services/dataService';
+import React,{useState, useEffect} from 'react';
+import { downloadCSV, filterByName, sortBy, getAll } from './services/dataService';
 import { CSVLink } from 'react-csv';
-import TableComponent from './components/table-component/TableComponent'
+import TableComponent from './components/table-component/TableComponent';
 
 function App() {
-  const [players, setPlayers] = useState(data);
+  const [players, setPlayers] = useState([]);
   const [sortDirection, setSortDirection] = useState({'Yds':-1, 'Lng': -1, 'TD': -1});
   const [filterName, setFilterName] = useState('');
   const [contentType, setContentType] = useState('');
-  const [sortArrow, setSortArrow] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getAll();
+      setPlayers(result);
+    };
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let result = await filterByName(filterName);
+    let result = await filterByName(filterName, players);
     setPlayers(result);
   };
 
@@ -32,27 +38,22 @@ function App() {
     setPlayers(result);
   };
 
-  const handleClick = ()=> {
-    let file = downloadCSV(players);
-  };
-
   return (
     <div className="App">
       <h1>the Rush</h1>
       <div className="container">
+        
         <form className="form-inline align-items-center" onSubmit={handleSubmit}>
-          <div className="col-auto">
-            <div className="form-group mb-2">
-              <label >Filter by Name</label>
-              <input className="form-control" type="text" placeholder="Enter Player Name" value={filterName} onChange={e=>setFilterName(e.target.value)}/>
+          <div className="row">
+            <div className="col-10">
+                <input className="form-control" type="text" placeholder="Enter Player Name" value={filterName} onChange={e=>setFilterName(e.target.value)}/>
             </div>
-          </div>
-          <div className="col-auto">
+            <div className="col-2">
               <input type="submit" className="btn btn-primary" value="Filter" />
+            </div>
           </div>
         </form>
         <CSVLink data={players} filename={"rushing.csv"} >Download Table<i className="fa fa-download" aria-hidden="true"></i></CSVLink>
-        <button className="btn btn-primary" onClick={handleClick}>Download CSV</button>
         <TableComponent  handleSort={handleSort} players={players}/>
       </div>
     </div>

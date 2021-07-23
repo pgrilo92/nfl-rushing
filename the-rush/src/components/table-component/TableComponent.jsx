@@ -1,6 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 const TableComponent = ({handleSort, players}) => {
+
+  const handleClick = () => {
+    
+  };
   return (
     <div className="players-container">
     <table className="table table-hover">
@@ -26,6 +30,7 @@ const TableComponent = ({handleSort, players}) => {
       </thead>
       <tbody>
         {
+          
           players.map((player,idx)=>{
             return (
               <tr key={idx}>
@@ -53,11 +58,8 @@ const TableComponent = ({handleSort, players}) => {
     </table>
     <nav aria-label="pagination">
       <ul className="pagination">
-        <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-        <li className="page-item"><a className="page-link" href="#">1</a></li>
-        <li className="page-item"><a className="page-link" href="#">2</a></li>
-        <li className="page-item"><a className="page-link" href="#">3</a></li>
-        <li className="page-item"><a className="page-link" href="#">Next</a></li>
+        <li className="page-item"><button className="page-link" onCLick={handleClick}>Previous</button></li>
+        <li className="page-item"><button className="page-link" onClick={handleClick}>Next</button></li>
       </ul>
     </nav>
   </div>

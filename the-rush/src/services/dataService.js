@@ -1,4 +1,18 @@
-import data from '../rushing';
+const BASE_URL = '/api/players/'
+
+function getAll() {
+  return fetch(BASE_URL, {
+      method: 'GET'
+  })
+  .then(res => {
+      if (res.ok) {
+          return res.json();
+      };
+  })
+  .catch(error=>{
+    console.log('Error', error);
+  });
+};
 
 const sortBy = (field, sortDirection, players) => {
   if (field ==='Yds') {
@@ -8,33 +22,22 @@ const sortBy = (field, sortDirection, players) => {
   } else if (field === 'TD') {
     return players.sort((a, b) => (sortDirection['TD']*(a['TD'] - b['TD'])));
   } else {
-    return players
-  }
-}
+    return players;
+  };
+};
 
-const filterByName = (name) => {
-
+const filterByName = (filterName, players) => {
   let result = [];
-  for(let i=0; i<data.length; i++) {
-    if (data[i].Player.toLowerCase().indexOf(name.toLowerCase()) >= 0) {
-      result.push(data[i]);
-    }
-  }
+  for(let i=0; i<players.length; i++) {
+    if (players[i].Player.toLowerCase().indexOf(filterName.toLowerCase()) >= 0) {
+      result.push(players[i]);
+    };
+  };
   return result;
-}
-
-const downloadCSV = (players)=> {
-  let csv = 'the Rush\n';  
-  players.forEach((row) => {  
-    csv += row.join(',');  
-    csv += "\n";  
-  });
-  const contentType = "data:text/csv;charset=utf-8," + encodeURI(csv)
-
 };
 
 export {
+  getAll,
   sortBy,
-  filterByName,
-  downloadCSV
+  filterByName
 };
