@@ -2,11 +2,11 @@ import data from '../rushing';
 
 const sortBy = (field, sortDirection, players) => {
   if (field ==='Yds') {
-    return players.sort((a, b) => (sortDirection*(a['Yds'] - b['Yds'])));
+    return players.sort((a, b) => (sortDirection['Yds']*(a['Yds'] - b['Yds'])));
   } else if (field === 'Lng') {
-    return players.sort((a, b) => (sortDirection*(a['Lng'] - b['Lng'])));
+    return players.sort((a, b) => (sortDirection['Lng']*(a['Lng'] - b['Lng'])));
   } else if (field === 'TD') {
-    return players.sort((a, b) => (sortDirection*(a['TD'] - b['TD'])));
+    return players.sort((a, b) => (sortDirection['TD']*(a['TD'] - b['TD'])));
   } else {
     return players
   }
