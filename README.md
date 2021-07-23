@@ -54,4 +54,15 @@ We will evaluate you on your ability to solve the problem defined in the require
 If you have any questions regarding requirements, do not hesitate to email your contact at theScore for clarification.
 
 ### Installation and running this solution
-... TODO
+1. Clone this repo
+2. Open the folder named the-rush
+3. Run command `npm i`
+4. `npm run build` App is proxied to port 3001
+5. Now run the app `node server.js` or `nodemon server.js`
+6. The app will be ready for use. You will be able to perform filtering, sorting and downloading the players data.
+
+### Future Features
+1. Add a pagination system to limit the amound of data fetched at once to improve performance
+2. Allow to choose the number of records per page
+3. Implement a mongo database to keep the records stored
+4. Add tags for specific categories like top 10 Yds only
